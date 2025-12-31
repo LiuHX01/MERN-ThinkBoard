@@ -12,23 +12,23 @@ const app = express();
 const port = process.env.PORT || 5001;
 const __dirname = path.resolve();
 
-if (process.env.NODE_ENV !== "production") {
-    app.use(cors())
+// if (process.env.NODE_ENV !== "production") {
+app.use(cors())
 
-}
+// }
 
 app.use(express.json());
 app.use(rateLimiter);
 
 app.use("/api/notes", notesRoutes);
 
-if (process.env.NODE_ENV === "production") {
-    app.use(express.static(path.join(__dirname, "../frontend/dist")))
+// if (process.env.NODE_ENV === "production") {
+//     app.use(express.static(path.join(__dirname, "../frontend/dist")))
 
-    app.get("*", (_, res) => {
-        res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"))
-    })
-}
+//     app.get("*", (_, res) => {
+//         res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"))
+//     })
+// }
 
 connectDB().then(() => {
     app.listen(port, () => {
